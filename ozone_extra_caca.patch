@@ -14,7 +14,7 @@ index c46a90b..0022248 100644
  # something like:
  # ozone_external_platform_deps = [ "platform/foo1", "platform/foo_2", ... ]
 -ozone_external_platform_deps = []
-+ozone_external_platform_deps = [ "platform/ozone-caca" ]
++ozone_external_platform_deps = [ "platform/caca" ]
  
  # If a platform has unit tests, the corresponding source_set can be listed here
  # so that they get included into ozone_unittests.
