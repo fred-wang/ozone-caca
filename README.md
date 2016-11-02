@@ -14,6 +14,7 @@ and execute the following commands inside the `src` repository:
 git clone https://github.com/fred-wang/ozone-caca ui/ozone/platform/caca
 git apply ui/ozone/platform/caca/ozone_extra_caca.patch
 gn args out/OzoneCaca --args="use_ozone=true ozone_platform_caca=true use_sysroot=false ozone_auto_platforms=false toolkit_views=false"
+ninja -C out/OzoneCaca content_shell
 ./out/OzoneCaca/content_shell --disable-setuid-sandbox \
                               --ozone-platform=caca \
                               https://www.google.com/chrome/browser/desktop/index.html
