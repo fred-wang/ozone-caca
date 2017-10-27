@@ -16,6 +16,7 @@ git apply ui/ozone/platform/caca/ozone_extra_caca.patch
 gn args out/OzoneCaca --args="use_ozone=true use_sysroot=false ozone_auto_platforms=false toolkit_views=false"
 ninja -C out/OzoneCaca content_shell
 ./out/OzoneCaca/content_shell --disable-setuid-sandbox \
+                              --display-gpu \
                               --ozone-platform=caca \
                               https://www.google.com/chrome/browser/desktop/index.html
 ```

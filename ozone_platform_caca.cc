@@ -5,10 +5,10 @@
 #include "ui/ozone/platform/caca/ozone_platform_caca.h"
 
 #include "base/macros.h"
-#include "base/memory/ptr_util.h"
+#include "ui/display/manager/fake_display_delegate.h"
 #include "ui/events/ozone/layout/keyboard_layout_engine_manager.h"
 #include "ui/events/ozone/layout/no/no_keyboard_layout_engine.h"
-#include "ui/ozone/common/native_display_delegate_ozone.h"
+#include "ui/events/system_input_injector.h"
 #include "ui/ozone/common/stub_overlay_manager.h"
 #include "ui/ozone/platform/caca/caca_event_source.h"
 #include "ui/ozone/platform/caca/caca_window.h"
@@ -17,7 +17,6 @@
 #include "ui/ozone/public/gpu_platform_support_host.h"
 #include "ui/ozone/public/input_controller.h"
 #include "ui/ozone/public/ozone_platform.h"
-#include "ui/ozone/public/system_input_injector.h"
 
 namespace ui {
 
@@ -56,12 +55,12 @@ class OzonePlatformCaca : public OzonePlatform {
       return nullptr;
     return std::move(caca_window);
   }
-  std::unique_ptr<NativeDisplayDelegate> CreateNativeDisplayDelegate()
+  std::unique_ptr<display::NativeDisplayDelegate> CreateNativeDisplayDelegate()
       override {
-    return base::MakeUnique<NativeDisplayDelegateOzone>();
+    return std::make_unique<display::FakeDisplayDelegate>();
   }
 
-  void InitializeUI() override {
+  void InitializeUI(const InitParams& params) override {
     window_manager_.reset(new CacaWindowManager);
     overlay_manager_.reset(new StubOverlayManager());
     event_source_.reset(new CacaEventSource());
@@ -69,10 +68,10 @@ class OzonePlatformCaca : public OzonePlatform {
     gpu_platform_support_host_.reset(CreateStubGpuPlatformSupportHost());
     input_controller_ = CreateStubInputController();
     KeyboardLayoutEngineManager::SetKeyboardLayoutEngine(
-        base::MakeUnique<NoKeyboardLayoutEngine>());
+        std::make_unique<NoKeyboardLayoutEngine>());
   }
 
-  void InitializeGPU() override {
+  void InitializeGPU(const InitParams& params) override {
     if (!window_manager_) {
       // The return value of GetSurfaceFactoryOzone() must be non-null so a
       // dummy instance of CacaWindowManager is needed to make the GPU
