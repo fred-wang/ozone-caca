@@ -12,6 +12,7 @@
 #include "base/macros.h"
 #include "base/memory/weak_ptr.h"
 #include "ui/events/platform/platform_event_dispatcher.h"
+#include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/size.h"
 #include "ui/gfx/native_widget_types.h"
 #include "ui/ozone/platform/caca/scoped_caca_types.h"
@@ -53,6 +54,7 @@ class CacaWindow : public PlatformWindow, public PlatformEventDispatcher {
   void Show() override;
   void Hide() override;
   void Close() override;
+  void PrepareForShutdown() override;
   void SetCapture() override;
   void ReleaseCapture() override;
   void ToggleFullscreen() override;

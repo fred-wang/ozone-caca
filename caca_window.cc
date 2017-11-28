@@ -120,6 +120,8 @@ void CacaWindow::Hide() {}
 
 void CacaWindow::Close() {}
 
+void CacaWindow::PrepareForShutdown() {}
+
 void CacaWindow::SetCapture() {}
 
 void CacaWindow::ReleaseCapture() {}
@@ -143,7 +145,7 @@ PlatformImeController* CacaWindow::GetPlatformImeController() {
 }
 
 void CacaWindow::SetTitle(const base::string16& title) {
-  caca_set_display_title(display_.get(), UTF16ToUTF8(title).c_str());
+  caca_set_display_title(display_.get(), base::UTF16ToUTF8(title).c_str());
 }
 
 bool CacaWindow::CanDispatchEvent(const PlatformEvent& event) { return true; }

@@ -9,7 +9,7 @@
 
 #include <memory>
 
-#include "base/id_map.h"
+#include "base/containers/id_map.h"
 #include "base/macros.h"
 #include "base/threading/thread_checker.h"
 #include "ui/ozone/public/surface_factory_ozone.h"
@@ -38,7 +38,7 @@ class CacaWindowManager : public SurfaceFactoryOzone {
       gfx::AcceleratedWidget widget) override;
 
  private:
-  IDMap<CacaWindow> windows_;
+  base::IDMap<CacaWindow*> windows_;
   base::ThreadChecker thread_checker_;
 
   DISALLOW_COPY_AND_ASSIGN(CacaWindowManager);
